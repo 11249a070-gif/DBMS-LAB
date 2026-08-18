@@ -1,0 +1,190 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Tue Aug 18 14:39:39 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A070@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> SELECT EMPNOI,ENAME FROM EMP;
+SELECT EMPNOI,ENAME FROM EMP
+                         *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT EMPNO,ENAME FROM EMP;
+SELECT EMPNO,ENAME FROM EMP
+                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select empno,ename from emp;
+select empno,ename from emp
+                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(4)
+ ENAME                                              VARCHAR2(15)
+ SALARY                                             NUMBER(7,2)
+ COMM                                               NUMBER(5)
+ DESIGN                                             VARCHAR2(10)
+ DEPTNO                                             NUMBER(2)
+
+SQL> select * from employee
+  2  ;
+
+     EMPNO ENAME               SALARY       COMM DESIGN         DEPTNO
+---------- --------------- ---------- ---------- ---------- ----------
+      1001 Ravi                 25000       1000 Manager            10
+      1002 Rahul                18000        500 Clerk              20
+      1003 Amit                 22000            Engineer           30
+      1001 Ravi                 25000       1000 Manager            10
+      1002 Rahul                18000        500 Clerk              20
+      1003 Amit                 22000            Engineer           30
+
+6 rows selected.
+
+SQL> select empno,salary from employee
+  2  ;
+
+     EMPNO     SALARY
+---------- ----------
+      1001      25000
+      1002      18000
+      1003      22000
+      1001      25000
+      1002      18000
+      1003      22000
+
+6 rows selected.
+
+SQL> select empno,salary,"design designation" from employee;
+select empno,salary,"design designation" from employee
+                    *
+ERROR at line 1:
+ORA-00904: "design designation": invalid identifier
+
+
+SQL> SELECT EMPNO, SALARY, DESIGN AS "Design Designation"
+  2  FROM EMPLOYEE;
+
+     EMPNO     SALARY Design Des
+---------- ---------- ----------
+      1001      25000 Manager
+      1002      18000 Clerk
+      1003      22000 Engineer
+      1001      25000 Manager
+      1002      18000 Clerk
+      1003      22000 Engineer
+
+6 rows selected.
+
+SQL> select * from employee where salary=22000;
+
+     EMPNO ENAME               SALARY       COMM DESIGN         DEPTNO
+---------- --------------- ---------- ---------- ---------- ----------
+      1003 Amit                 22000            Engineer           30
+      1003 Amit                 22000            Engineer           30
+
+SQL> select * from employee where comm is null;
+
+     EMPNO ENAME               SALARY       COMM DESIGN         DEPTNO
+---------- --------------- ---------- ---------- ---------- ----------
+      1003 Amit                 22000            Engineer           30
+      1003 Amit                 22000            Engineer           30
+
+SQL> select empno,ename,deptno,salfrom emp order by depotno;
+select empno,ename,deptno,salfrom emp order by depotno
+                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select empno,ename,deptno,sal from emp order by depotno;
+select empno,ename,deptno,sal from emp order by depotno
+                                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select empno,ename,deptno,sal from emp order by deptno;
+select empno,ename,deptno,sal from emp order by deptno
+                                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT EMPNO, ENAME, DEPTNO, SALARY
+  2  FROM EMPLOYEE
+  3  ORDER BY DEPTNO;
+
+     EMPNO ENAME               DEPTNO     SALARY
+---------- --------------- ---------- ----------
+      1001 Ravi                    10      25000
+      1001 Ravi                    10      25000
+      1002 Rahul                   20      18000
+      1002 Rahul                   20      18000
+      1003 Amit                    30      22000
+      1003 Amit                    30      22000
+
+6 rows selected.
+
+SQL> Select empno, ename, sal from emp order by 3;
+Select empno, ename, sal from emp order by 3
+                              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT empno, ename, sal
+  2  FROM emp
+  3  ORDER BY 3;
+FROM emp
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT EMPNO, ENAME, SALARY
+  2  FROM EMPLOYEE
+  3  ORDER BY 3;
+
+     EMPNO ENAME               SALARY
+---------- --------------- ----------
+      1002 Rahul                18000
+      1002 Rahul                18000
+      1003 Amit                 22000
+      1003 Amit                 22000
+      1001 Ravi                 25000
+      1001 Ravi                 25000
+
+6 rows selected.
+
+SQL> select Deptno,Max(sal) from emp group by deptno;
+select Deptno,Max(sal) from emp group by deptno
+                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT DEPTNO, MAX(SALARY)
+  2  FROM EMPLOYEE
+  3  GROUP BY DEPTNO;
+
+    DEPTNO MAX(SALARY)
+---------- -----------
+        30       22000
+        20       18000
+        10       25000
+
+SQL>
